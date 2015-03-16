@@ -1,0 +1,18 @@
+s:=1;
+n:=6;
+flag:=(((s*n)+14)-78);
+print (flag/2)
+println;
+while (n>=s)
+	print " s is ";
+	if (s!=2)
+		print s;
+	else;
+		skip;
+	fi;
+	s*=2;
+	println;
+done;
+print s;
+println;
+

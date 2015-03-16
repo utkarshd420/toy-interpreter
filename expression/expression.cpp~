@@ -1,0 +1,93 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class expression
+{
+	private:
+		expression *left_child;
+		expression *right_child;
+	public:
+		void set_left_child(expression *);
+		void set_right_child(expression *);
+		expression* get_left_child(expression *);
+		expression* get_right_child(expression *);
+		expression()
+		{
+			set_left_child(NULL);
+			set_right_child(NULL);			
+		}
+};
+
+expression* expression::get_left_child(expression *e)
+{
+	return e->left_child;
+}
+expression * expression::get_right_child(expression *e)
+{
+	return e->right_child;
+}
+void expression::set_left_child(expression *e)
+{
+	e->set_left_child(e);
+}
+void expression::set_right_child(expression *e)
+{
+	e->set_right_child(e);
+}
+
+
+class plus_expression:public expression
+{
+	public:
+	int evaluate(expression *e)	
+	{
+		return e->left_child + e->right_child;
+	}
+		
+};
+class constant_expression:public expression
+{
+	private:		
+	int state;
+	public:
+	void set_state(int s)
+	{
+		state=s;
+	}
+	int get_state()
+	{
+		return state;
+	}
+	int evaluate(expresion *)
+	{
+		return expression->get_state();
+	}	
+};
+
+expression * tokenize(string s,expression *e)
+{
+	int b=0;
+	for(int i=0;i<s.length();i++)
+	{
+		if(s[i]=='(')
+			b++;
+		else if(s[i]==')')
+			b--;
+		else if(s[i]=='+')
+		{
+			if(b==1)
+			{
+				e->set_left_child(tokenize(s.substr(0,i),e->get_left_child()));
+				e->set_right_child(tokenize(s.substr(i+1),e->get_right_child()))
+			}
+		}
+	}
+	return e;
+}
+int main()
+{
+	string s="";
+	cout<<"Input expresion ";
+	cin>>s;
+	
+}
